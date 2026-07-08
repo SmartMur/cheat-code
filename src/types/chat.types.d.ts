@@ -1,9 +1,9 @@
 const tabs = ['Refactor', 'Find Bug', 'Explain', 'Generate'] as const;
 
-export type Tab = typeof tabs[number];
+export type Tab = (typeof tabs)[number];
 
 export interface ChatMessage {
-  role: 'user' | 'system';
+  role: 'user' | 'system' | 'assistant';
   content: string;
 }
 

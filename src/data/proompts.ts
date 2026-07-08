@@ -1,8 +1,6 @@
-import type { tabs } from '$/types/chat.types.d';
+import type { Tab } from '$/types/chat.types';
 
-type Proompts = {
-  [tab in typeof tabs[number]]: string;
-};
+type Proompts = Record<Tab, string>;
 
 const appendToPrompt = `
   Please start with the code, and add explanation after.
@@ -10,9 +8,7 @@ const appendToPrompt = `
   Please avoid conversation words, like Sure / Happy to help / No problem / etc.
 `;
 
-export const proompts: {
-  [tab in typeof tabs[number]]: string;
-} = {
+export const proompts: Proompts = {
   Refactor: `
     I would like you to act as a code reviewer, and refactor code snippets.
     Please analyze the code, identify issues and areas for improvement, and suggest changes.

@@ -13,15 +13,15 @@
 
 <footer>
   <p>
-    © <a href={footerInfo.authorSite} target="_blank" rel="noreferrer"
+    © <a href={footerInfo.authorSite} target="_blank" rel="external noreferrer"
       >{footerInfo.author}</a
     >
     {new Date().getFullYear()} - Licensed under
-    <a href={footerInfo.licenseLink} target="_blank" rel="noreferrer"
+    <a href={footerInfo.licenseLink} target="_blank" rel="external noreferrer"
       >{footerInfo.license}</a
     >
     - View on
-    <a href={footerInfo.source} target="_blank" rel="noreferrer">
+    <a href={footerInfo.source} target="_blank" rel="external noreferrer">
       GitHub <Icon name="github" color="var(--accent)" /></a
     >
   </p>

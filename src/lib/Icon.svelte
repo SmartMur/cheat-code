@@ -17,7 +17,7 @@
 
   interface Icon {
     box: number;
-    name: typeof availableIcons[number];
+    name: (typeof availableIcons)[number];
     svg: string;
   }
 
@@ -59,6 +59,7 @@
   style={`--iconColor: ${color}; --iconHoverColor: ${hoverColor};`}
   viewBox="0 0 {displayIcon?.box} {displayIcon?.box}"
 >
+  <!-- eslint-disable-next-line svelte/no-at-html-tags -- Static SVG paths are selected from the local icon map. -->
   {@html displayIcon?.svg}
 </svg>
 

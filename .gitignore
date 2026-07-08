@@ -2,7 +2,12 @@
 node_modules
 /build
 /.svelte-kit
+/.netlify
+/.vercel
 /package
+/test-results
+/playwright-report
+/blob-report
 .env
 .env.*
 !.env.example

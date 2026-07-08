@@ -1,8 +1,8 @@
 <script lang="ts">
-  import SvelteMarkdown from 'svelte-markdown';
+  import SvelteMarkdown from '@humanspeak/svelte-markdown';
   import { slide } from 'svelte/transition';
   import Icon from '$/lib/Icon.svelte';
-  import type { ChatMessage, TabDescription } from '$/types/chat.types';
+  import type { ChatMessage } from '$/types/chat.types';
   import { proompts } from '$/data/proompts';
   import { messageLog } from '$/data/MessageLogStore';
   import { descriptions } from '$/data/TabDescriptions';
@@ -25,20 +25,17 @@
     const chatGPTMessage = await fetch('/', {
       method: 'POST',
       body: JSON.stringify({ messages }),
-    }).then((res) => res.json() as Promise<{ messages: ChatMessage[] }>);
+    }).then((res) => res.json() as Promise<ChatMessage>);
 
     loading = false;
 
     messageLog.set({
       ...$messageLog,
-      [selectedTab]: [
-        ...$messageLog[selectedTab],
-        chatGPTMessage satisfies ChatMessage[],
-      ],
+      [selectedTab]: [...$messageLog[selectedTab], chatGPTMessage],
     });
   };
 
-  let selectedTab: typeof tabs[number] = 'Refactor';
+  let selectedTab: (typeof tabs)[number] = 'Refactor';
 
   const switchTab = (newTab: number) => {
     selectedTab = tabs[newTab];
@@ -46,7 +43,7 @@
 
   $: tabTxt = descriptions[selectedTab];
 
-  $: answer = $messageLog[selectedTab]
+  $: answer = [...$messageLog[selectedTab]]
     .reverse()
     .find((msg) => msg.role === 'assistant')?.content;
 </script>
@@ -70,7 +67,7 @@
 
   <!-- List of tabs, to change tool behavior -->
   <div class="tab-selector">
-    {#each tabs as tab, i}
+    {#each tabs as tab, i (tab)}
       <button
         on:click={() => switchTab(i)}
         class:selected={tab === selectedTab}
@@ -85,11 +82,8 @@
   <!-- User input form, and submit button -->
   <div class="user-input">
     <div class="intro">{tabTxt.intro}</div>
-    <textarea
-      bind:value={newMessage}
-      rows="5"
-      placeholder={tabTxt.placeholder}
-    />
+    <textarea bind:value={newMessage} rows="5" placeholder={tabTxt.placeholder}
+    ></textarea>
     <div class="submit-btn">
       <button disabled={loading} on:click={chat}>
         {loading ? 'Thinking...' : tabTxt.btnText}
@@ -102,7 +96,7 @@
     <div class="output" transition:slide>
       {#if loading}
         <h2>Loading</h2>
-        <span class="loader" />
+        <span class="loader"></span>
       {/if}
       {#if answer}
         <h2>Solution</h2>
@@ -115,5 +109,4 @@
 </main>
 
 <style lang="scss">
-  
 </style>

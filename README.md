@@ -12,7 +12,6 @@
   <sup>Yes, the UI is really ugly</sup>
 </p>
 
-
 ---
 
 ## Getting Started

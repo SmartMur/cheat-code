@@ -3,7 +3,7 @@ import netlifyAdapter from '@sveltejs/adapter-netlify';
 import vercelAdapter from '@sveltejs/adapter-vercel';
 import nodeAdapter from '@sveltejs/adapter-node';
 
-import { vitePreprocess } from '@sveltejs/kit/vite';
+import { vitePreprocess } from '@sveltejs/vite-plugin-svelte';
 
 const multiAdapter = (adapters) => {
   return {
@@ -24,7 +24,7 @@ const config = {
     adapter: multiAdapter([
       autoAdapter(),
       netlifyAdapter(),
-      vercelAdapter(),
+      vercelAdapter({ runtime: 'nodejs22.x' }),
       nodeAdapter(),
     ]),
     alias: {
